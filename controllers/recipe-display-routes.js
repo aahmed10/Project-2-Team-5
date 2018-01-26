@@ -9,7 +9,7 @@ module.exports = function(app) {
         });
       });
 
-
+/*
     app.get("/ingredient/:recipeId", function(req, res){
         db.Recipe.findOne({
         	where: {
@@ -24,8 +24,9 @@ module.exports = function(app) {
         });
 
     });
+    */
 
-    app.get("/instruction/:recipeId", function(req, res){
+   /* app.get("/instruction/:recipeId", function(req, res){
         db.Recipe.findOne({
           where: {
             id: req.params.recipeId
@@ -40,7 +41,43 @@ module.exports = function(app) {
 
     });
 };
+*/
 
+app.get("/ingredient/:recipeId", function(req, res){
+        db.Recipe.findOne({
+          where: {
+            id: req.params.recipeId
+          },
+          include: [{
+            model: db.ingredient,
+            //model: db.instruction,
+          }]
+        }).then(function(result) {
+            console.log(result)
+            //res.render("recipe", { recipe_data: result }); //goes to recipes.handlebars
+            res.render("ingredientpage", {ingredients: Ingredients[0].ingredient_info});
+        });
+    });
+
+
+
+app.get("/instruction/:recipeId", function(req, res){
+        db.Recipe.findOne({
+          where: {
+            id: req.params.recipeId
+          },
+          include: [{
+            //model: db.ingredient,
+            model: db.Instruction,
+          }]
+        }).then(function(result) {
+            console.log(result)
+            //res.render("recipe", { recipe_data: result }); //goes to recipes.handlebars
+            res.render("ingredientpage", {instructions: dataValues.Instructions[0]});
+        });
+    });
+
+/*
 /*
 db.Ingredients.findAll({
   where:{
@@ -78,3 +115,4 @@ module.exports = function(app) {
 
 
 */
+};
