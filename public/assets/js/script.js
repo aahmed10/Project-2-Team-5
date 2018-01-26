@@ -8,18 +8,6 @@ $(document).ready(function () {
         });
     });
 
-    //NavBar Logo to return to Homepage
-    $("#navbarlogo").on("click", function () {
-        $.ajax({
-            url: `/`,
-            method: "GET",
-        }).then(function (data) {
-            console.log(data);
-            console.log("Returning to Home");
-            $(".body-template").html(data); //need better way - should load original page/path
-        })
-    });
-
     //Recipe Search Function
     $(".search-button").on("click", function () {
         event.preventDefault();
@@ -45,36 +33,85 @@ $(document).ready(function () {
         ev.target.parentElement.classList.toggle("checked");
     });
 
-    //Recipe -> Ingredient Button (convert to ingredient page when clicked)
-    $(".recipeName").on("click", function () {
-        $.ajax({
-            url: `/burgers/eat/${$(this).attr("data-id")}`,
-            method: "GET"
-        }).then(function (data) {
-            console.log("Then data: " + data);
-            location.reload();
-        })
+    //Logout Button
+    $(".logoutBtn").on("click", function () {
+        location.href = "/";
     });
 
     //Delete Ajax (DELETE) Calls
     $(".recipeDelete").on("click", function () {
-        var listItemData = $(this).parent("td").parent("tr").data("RecipeId");
-        var id = listItemData.id;
+        var id = $(this).attr("data-id");
+        console.log(id);
         $.ajax({
-                method: "DELETE",
-                url: "/api/authors/" + id
-            })
-            .then(getAuthors);
+            method: "DELETE",
+            url: "/api/recipes/" + id
+        }).then(function (data) {
+            console.log("deleted recipe", id);
+        })
     });
 
-    //Edit Ajax (PUT) Calls
+    //Toggle Recipe complete
+    $(".recipeComplete").on("click", function () {
+        var id = $(this).data("id");
+        var recipe_checkbox = $(this).data("checkbox");
+        var recipeState;
+
+        console.log(recipe_checkbox);
+
+        if (recipe_checkbox === true) {
+            recipeState = {
+                recipe_checkbox: false
+            };
+        } else {
+            recipeState = {
+                recipe_checkbox: true
+            };
+        }
+
+        // Send the DELETE request.
+        $.ajax("/api/recipes/update/" + id, {
+            type: "PUT",
+            data: recipeState,
+        }).then(
+            function () {
+                console.log("Cooked recipe:", id);
+                location.href = "/recipe";
+            }
+        );
+    });
+
+    //EDIT BUTTON
     $(".recipeEdit").on("click", function () {
+        var id = $(this).data("id");
+        console.log(id);
+        location.href = "/recipe/edit/" + id;
+    });
+
+    //EDIT FORM SUMBITS
+    $(".editSubmit").on("click", function (post) {
+        var id = $(this).data("Id");
+        var ingredientId = $(this).data("ingredientId");
+
+        var newTitle = $("#editTitle").val();
+        var newIngredient = $("#editIngredient").val();
+        var newInstruction = $("#editInstruction").val();
+
         $.ajax({
-            url: `/burgers/eat/${$(this).attr("data-id")}`,
-            method: "PUT"
-        }).then(function (data) {
-            console.log("Then data: " + data);
-            location.reload();
+            method: "PUT",
+            url: "/api/recipes/edit/" + ingredientid,
+            data: post
         })
+        .then(function () {
+            window.location.href = "/recipe/" + id;
+        });
+
+        $.ajax({
+            method: "PUT",
+            url: "/api/recipes/edit/" + ingredientid,
+            data: post
+        })
+        .then(function () {
+            window.location.href = "/recipe/" + id;
+        });
     });
 });

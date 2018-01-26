@@ -1,22 +1,22 @@
 <nav class="navbar navbar-user">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand navbar-brand-user" id="navbarlogo" href="#">Recipeasy</a>
+            <a class="navbar-brand navbar-brand-user" id="navbarlogo" href="/recipe">Recipeasy</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a class="navtext navbar-right-user">LOGOUT</a>
+                <a class="navtext navbar-right-user logoutBtn">LOGOUT</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    <h1 class="ingredient-title">INGREDIENT TITLE</h1>
-    <p class="ingredient-text">serving size</p>
+    <h1 class="ingredient-title">{{recipe_data.recipe_name}}</h1>
+    <!--<p class="ingredient-text">serving size</p>-->
     <h3 class="ingredient-header">INGREDIENTS</h3>
     <div class="ingredients-list ingredient-text">
-        {{#each ingredients}}
+        {{#each recipe_data.Ingredients}}
             <div class="row ingredientChecklist">
                 <div class="col-sm-1">
                     <i class="glyphicon glyphicon-ok"></i>
@@ -29,15 +29,15 @@
     </div>
     <h3 class="ingredient-header">DIRECTIONS</h3>
     <p class="ingredient-text">
-        {{#each instructions}}
+        {{#each recipe_data.Instructions}}
             <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-11 instructionInfo">
                     {{this.instruction_info}}
                 </div>
             </div>
         {{/each}}
     </p>
-    <button class="btn ingredient-btn recipeEdit" type="button">EDIT</button>
-    <button class="btn ingredient-btn recipeDelete" type="button">DELETE</button>
-    <button class="btn ingredient-btn" type="button">COMPLETE</button>
+    <button class="btn ingredient-btn recipeEdit" type="button" data-id="{{recipe_data.id}}">EDIT</button>
+    <button class="btn ingredient-btn recipeDelete" type="button" data-id="{{recipe_data.id}}">DELETE</button>
+    <button class="btn ingredient-btn recipeComplete" type="button" data-id="{{recipe_data.id}}" data-checkbox="{{recipe_data.recipe_checkbox}}">NEED TO COOK | RECIPE COMPLETE</button>
 </div>

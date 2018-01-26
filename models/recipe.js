@@ -27,6 +27,10 @@ module.exports = function(sequelize, DataTypes){
         Recipe.hasMany(models.Ingredient, {
           onDelete: "cascade"
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> upsteam/master
         Recipe.hasMany(models.Instruction, {
           onDelete: "cascade"
         });

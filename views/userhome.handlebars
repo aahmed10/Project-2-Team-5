@@ -1,18 +1,18 @@
 <nav class="navbar navbar-user">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand navbar-brand-user" id="navbarlogo" href="#">Recipeasy</a>
+            <a class="navbar-brand navbar-brand-user" id="navbarlogo" href="/recipe">Recipeasy</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a class="navtext navbar-right-user">LOGOUT</a>
+                <a class="navtext navbar-right-user logoutBtn">LOGOUT</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    <form>
+    <!-- <form>
         <div class="input-group searchaddbar">
             <input type="text" class="form-control input-md" id="userSearch" placeholder="Search Your Recipe" />
             <span class="input-group-btn">
@@ -21,7 +21,7 @@
                 </button>
             </span>
         </div>
-    </form>
+    </form> -->
     <form action="/api/recipe" method="POST">
         <div class="input-group searchaddbar">
             <input type="text" id="recipe_url" name="recipe_url" class="form-control input-md" placeholder="Recipe URL" />
@@ -34,12 +34,12 @@
     </form>
     <div class="needtocook">
         <h2 class="table-header">
-            <img src="assets/images/eggbowl.png" class="table-icon">NEED TO COOK</h2>
+            <img src="/assets/images/eggbowl.png" class="table-icon">NEED TO COOK</h2>
         <table class="table">
             <thead>
                 <tr>
                     <th>TITLE</th>
-                    <th>SOURCE</th>
+                    <th class="sourceInfo">SOURCE</th>
                     <th>ACTION</th>
                 </tr>
             </thead>
@@ -47,12 +47,12 @@
                 {{recipes.recipe_name}} {{#each recipe_data}} {{#unless recipe_checkbox}}
                 <tr>
                     <td>
-                        <a class="recipeName">{{this.recipe_name}}</a>
+                        <a class="recipeName" href="/recipe/{{this.id}}">{{this.recipe_name}}</a>
                     </td>
-                    <td>{{this.recipe_url}}</td>
+                    <td class="sourceInfo">{{this.recipe_url}}</td>
                     <td>
-                        <a class="recipeName recipeDelete">delete</a>
-                        <a class="recipeName recipeEdit">edit</a>
+                        <a class="recipeName recipeDelete" data-id="{{this.id}}">delete</a>
+                        <a class="recipeName recipeEdit" data-id="{{this.id}}">edit</a>
                     </td>
                 </tr>
                 {{/unless}} {{/each}}
@@ -61,12 +61,12 @@
     </div>
     <div class="recipescomplete">
         <h2 class="table-header">
-            <img src="assets/images/utensils.png" class="table-icon">RECIPES COMPLETE</h2>
+            <img src="/assets/images/utensils.png" class="table-icon">RECIPES COMPLETE</h2>
         <table class="table">
             <thead>
                 <tr>
                     <th>TITLE</th>
-                    <th>SOURCE</th>
+                    <th class="sourceInfo">SOURCE</th>
                     <th>ACTION</th>
                 </tr>
             </thead>
@@ -74,11 +74,11 @@
                 {{#each recipe_data}} {{#if recipe_checkbox}}
                 <tr>
                     <td>
-                        <a class="recipeName">{{this.recipe_name}}</a>
+                        <a class="recipeName" href="/recipe/{{this.id}}">{{this.recipe_name}}</a>
                     </td>
-                    <td>{{this.recipe_url}}</td>
+                    <td class="sourceInfo">{{this.recipe_url}}</td>
                     <td>
-                        <a class="recipeName recipeDelete">delete</a>
+                        <a class="recipeName recipeDelete" data-id="{{this.id}}">delete</a>
                         <a class="recipeName recipeEdit">edit</a>
                     </td>
                 </tr>

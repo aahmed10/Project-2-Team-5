@@ -364,9 +364,10 @@ th {
 
 /* ===============================================INGREDIENT PAGE ================================================ */
 .ingredient-title {
-  font-size: 5rem;
-  letter-spacing: 1rem;
+  font-size: 6.5rem;
+  letter-spacing: 0.3rem;
   color: #E44125;
+  text-transform: uppercase;
   margin-top: 6rem; }
 
 .ingredient-header {
@@ -390,6 +391,13 @@ th {
 
 .ingredient-btn:hover {
   background-color: #6B7649; }
+
+.ingredientChecklist {
+  margin-top: 1.25rem; }
+
+.instructionInfo {
+  font-size: 2.25rem;
+  margin-top: 1.25rem; }
 
 .checked {
   color: #AAD037;
@@ -579,10 +587,23 @@ th {
     height: 2.5rem;
     padding-right: 3rem; }
 
+  .sourceInfo {
+    display: none; }
+
   /* ===============================================INGREDIENT PAGE================================================ */
   .ingredient-btn {
     padding: 1rem;
-    margin-right: 0.5rem; } }
+    margin-right: 0.5rem; }
+
+  .ingredient-title {
+    font-size: 5rem;
+    letter-spacing: 0.2rem; }
+
+  .ingredient-text {
+    font-size: 2rem; }
+
+  .instructionInfo {
+    font-size: 2rem; } }
 @media only screen and (max-width: 480px) {
   .navbar-brand {
     font-size: 4rem; }
